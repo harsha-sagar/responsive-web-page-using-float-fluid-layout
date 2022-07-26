@@ -1,0 +1,61 @@
+.header {
+	height: 85vh;
+	background-image: linear-gradient(
+		to right bottom, 
+		rgba($color-primary-light, 0.8), 
+		rgba($color-primary-dark, 0.8)), 
+		url('../img/hero-small.jpg');
+
+	background-size: cover;
+	// "cover" refers to occupy complete height, "100%" refers to occupy complete width
+
+	background-position: top;
+	position: relative;
+
+	@supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+		// apply these CSS only if browser supports clip-path property
+		height: 95vh;
+		-webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+		clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);			
+	}
+
+	// responsive images in css
+	// 192dpi represents the 2x density/pixel resolution (apple retina taken as reference here), considered as higher resolution
+	@media only screen and (min-resolution: 192dpi) and (min-width: 37.5em), 
+				 only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), 
+				 only screen and (min-width: 112.5em) {
+		// apply this media query 
+		// - if the device width is minimum 600px & with higher/2x resolution
+		// - or if the device width is minimum 1800px & with lower/1x resolution
+
+		// "min-resolution: 192dpi" media query is not supported in safari rather the condition should be "-webkit-min-device-pixel-ratio: 2"
+		background-image: linear-gradient(
+			to right bottom, 
+			rgba($color-primary-light, 0.8), 
+			rgba($color-primary-dark, 0.8)), 
+			url('../img/hero.jpg');	
+	}
+
+	@include respond(phone) {
+		-webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+		clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);	
+	}
+
+	&__logo-box {
+		position: absolute;
+		top: 4rem;
+		left: 4rem;
+	}
+	
+	&__logo {
+		height: 3.5rem;
+	}
+	
+	&__text-box {
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+	}
+}
